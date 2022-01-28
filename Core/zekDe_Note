@@ -1,0 +1,40 @@
+
+float fval = 1234.5678;
+uint8_t *a = (uint8_t*)&fval;
+for(uint8_t i = 0;i<sizeof(fval);i++)
+{}
+float *fval1 = (float*)a;
+
+// X macro usage
+#define XCOLOR X(WHITE) X(BLUE) X(GREEN)
+enum Color
+{
+#define X(a)   a,
+   XCOLOR
+#undef X
+};
+
+#define X(a)   #a
+   const char* const pcolor[] = {XCOLOR};
+#undef X
+// X macro usage END
+
+static uint32_t first = 0;
+static uint32_t second = 0;
+static uint32_t timeRes = 0;
+
+//24.Bit TRCENA in Debug Exception and Monitor Control Register must be set before enable DWT
+CoreDebug->DEMCR |= 1UL << 24;
+// CYCCNT is a free running counter, counting upwards.32 bits. 2^32 / cpuFreq = max time
+DWT->CYCCNT = 0u; // initialize the counter to 0
+DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk; // Enable the CYCCNT counter.
+
+// first = DWT->CYCCNT;
+// second = DWT->CYCCNT;
+//timeRes = second - first;
+
+ * NVIC_SystemReset(); sistemi resetler
+ * while(1); // dead loop, waiting for reset
+
+
+
