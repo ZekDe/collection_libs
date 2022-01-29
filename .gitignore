@@ -1,0 +1,21 @@
+.cproject
+.gitignore.txt
+.mxproject
+.project
+.settings/
+Core/Inc/gpio.h
+Core/Inc/main.h
+Core/Inc/stm32_assert.h
+Core/Inc/stm32f4xx_it.h
+Core/Src/gpio.c
+Core/Src/syscalls.c
+Core/Src/sysmem.c
+Core/Src/system_stm32f4xx.c
+Core/Startup/
+Debug/
+Drivers/
+STM32F407VGTX_FLASH.ld
+STM32F407VGTX_RAM.ld
+Silinecek Debug.launch
+Silinecek.ioc
+
