@@ -53,7 +53,7 @@ circularBuffer_t sSpecialBuffer;
 // Scenario Control Vars
 static ton_t sTon;
 static ton_t sTon1;
-static uint8_t bOperation = 0;//
+static uint8_t bOperation = 0;
 static _Bool oStart = false;
 static _Bool oStop = false;
 static _Bool oStartStop = false;
