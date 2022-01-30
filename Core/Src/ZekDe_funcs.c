@@ -93,7 +93,7 @@ void vSR_FF(_Bool S, _Bool R, _Bool *Q)
 	}
 	else
 	{
-		*Q = S || (!R && *Q); //
+		*Q = S || (!R && *Q);
 	}
 }
 
