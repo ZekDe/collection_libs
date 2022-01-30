@@ -1,7 +1,6 @@
 #include "circularBuffer.h"
 #include "string.h"
 
-
 circularBuffer_error_t eCBInit(circularBuffer_t *cb, void *buffer, uint32_t capacity, uint32_t sz)
 {
   const uint32_t incremented_capacity = capacity + 1; // Add extra element to evaluate count

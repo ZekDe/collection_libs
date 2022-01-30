@@ -4,11 +4,15 @@
 #include "stdint.h"
 #include "stdbool.h"
 
-// these macros are used to control "vTimeoutCheck
+// these two macros are used to control "vTimeoutCheck"
 #define TIMEOUT_EN(t, x)				(t)->in = (x)
 #define TIMEOUT_SET_INTERVAL(t, x)	(t)->interval = (x)
-
-
+/**
+ * \def TIME_OVER
+ * \brief check if time over in max 24.8 days acc to ms
+ *
+ */
+#define TIME_OVER(time, target) (uint32_t)((time) - (target) < 0x80000000UL)
 
 typedef struct
 {

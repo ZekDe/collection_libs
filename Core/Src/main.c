@@ -128,7 +128,7 @@ int main(void)
   }
 
   systick = 0;
-  TIMEOUT_SET_INTERVAL(&sBtnTimeout,3);
+  TIMEOUT_SET_INTERVAL(&sBtnTimeout,1000);
 
   /* USER CODE END 2 */
 

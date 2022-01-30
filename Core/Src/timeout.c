@@ -1,8 +1,6 @@
 #include "timeout.h"
 
-#define TIME_PASSED()	(now >= t->since) ? (now - t->since) : (now + (UINT32_MAX - t->since))
-
-static uint32_t timePassed(uint32_t since, uint32_t now);
+#define TIME_PASSED(now, since)	(now >= since) ? (now - since) : (now + (UINT32_MAX - since))
 
 /**
  * \fn void vTimeoutCheck(timeout_t*, const uint32_t*, void(*)(void))
@@ -21,7 +19,7 @@ void vTimeoutCheck(timeout_t *t, const uint32_t *now, void(*cb)(void))
  			t->since = *now;
  			t->aux = true;
  		}
-		else if(timePassed(t->since, *now) > t->interval)
+		else if(TIME_OVER(*now, t->since + t->interval))
 		{
 				t->since = *now;
 				(*cb)();
@@ -53,7 +51,7 @@ _Bool oTON(ton_t *t, _Bool in, const uint32_t *now, uint32_t presetTime)
 			t->since = *now;
 			t->aux = true;
  		}
-		else if(timePassed(t->since, *now) > presetTime)
+		else if(TIME_OVER(*now, t->since + presetTime))
 		{
 			return true;
 		}
@@ -68,15 +66,4 @@ _Bool oTON(ton_t *t, _Bool in, const uint32_t *now, uint32_t presetTime)
 	}
 
 	return false;
-}
-
-/**
- * \fn uint32_t timePassed(uint32_t, uint32_t)
- * \param since - time caught before
- * \param now - system tick continuously running
- * \return how long passed
- */
-static uint32_t timePassed(uint32_t since, uint32_t now)
-{
-	return ((now >= since) ? (now - since) : (now + (UINT32_MAX - since)));
 }
