@@ -124,6 +124,7 @@ int main(void)
 
   if(eCBInit(&sSpecialBuffer,buffer, 5, sizeof(uint32_t)) == CB_FAILED)
   {
+	  // never here
   }
 
   systick = 0;
