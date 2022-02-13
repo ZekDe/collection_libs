@@ -9,7 +9,7 @@
  *
  *
  */
-#define funcTemplate(t)	t func_##t(t a, t b) \
+#define tFuncTemplate(t)	t func_##t(t a, t b) \
 {\
 	return (t)(a + b); \
 }
@@ -22,7 +22,7 @@
  * \param catch - related value to catch
  * \param cb - callback function
  */
-void vRisingEdgeDetection_withCB(_Bool catch, void(*cb)(void))
+void vRisingEdgeDetection(_Bool catch, void(*cb)(void))
 {
 	static _Bool aux = false;
 
@@ -79,13 +79,13 @@ void vSeal(_Bool seal, _Bool breakTheSeal, _Bool *out)
 }
 
 /**
- * @brief Q(t+1) = S + R'Q(t) characteristic equation, reset priority
+ * @brief SR FlipFlop Q(t+1) = S + R'Q(t) characteristic equation, reset priority
  * if S and R are 1, Q is 0
  * @param S
  * @param R
  * @param Q
  */
-void vSR_FF(_Bool S, _Bool R, _Bool *Q)
+void vSR(_Bool S, _Bool R, _Bool *Q)
 {
 	if(S && R)
 	{

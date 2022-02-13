@@ -70,9 +70,9 @@ uint32_t systick = 0;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void btnPressed(void);
-void btnPressedOnce(void);
-uint32_t to_us(uint32_t cyc);
+void vBtnPressed(void);
+void vBtnPressedOnce(void);
+uint32_t dwGetus(uint32_t cyc);
 
 /* USER CODE END PFP */
 
@@ -166,7 +166,7 @@ int main(void)
 	// vTimeoutCheck function control
 	if(oStartStop)
 		{TIMEOUT_EN(&sBtnTimeout,true);}
-		vTimeoutCheck(&sBtnTimeout, &systick, btnPressed);
+		vTimeoutCheck(&sBtnTimeout, &systick, vBtnPressed);
   }
   /* USER CODE END 3 */
 }
@@ -212,7 +212,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void btnPressed(void)
+void vBtnPressed(void)
 {
 	TIMEOUT_EN(&sBtnTimeout, false);
 	LL_GPIO_TogglePin(GPIOD, LL_GPIO_PIN_13);
@@ -220,12 +220,12 @@ void btnPressed(void)
 //	length = CBlength(&specialBuffer);
 
 }
-void btnPressedOnce(void)
+void vBtnPressedOnce(void)
 {
 //	CBRead(&specialBuffer, (uint32_t*)&testVal);
 }
 
-uint32_t to_us(uint32_t cyc)
+uint32_t dwGetus(uint32_t cyc)
 {
 	return cyc / (SystemCoreClock / us_PER_sec);
 }
