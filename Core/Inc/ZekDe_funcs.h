@@ -7,6 +7,6 @@
 void vRisingEdgeDetection(_Bool catch, void(*cb)(void));
 _Bool oRisingEdgeDetection(_Bool catch);
 void vSeal(_Bool seal, _Bool breakTheSeal, _Bool *out);
-void vSR_FF(_Bool S, _Bool R, _Bool *Q);
+void vSR(_Bool S, _Bool R, _Bool *Q);
 
 #endif /* ZEKDE_FUNCS_H */
