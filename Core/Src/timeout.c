@@ -10,18 +10,18 @@
  * \param now - system tick continuously running
  * \param cb - callback function is called when the timer expired
  */
-void vTimeoutCheck(timeout_t *t, const uint32_t *now, void(*cb)(void))
+void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
 {
-	if(t->in)
+	if(s->oIn)
 	{
-		if(!t->aux)
+		if(!s->oAux)
  		{
- 			t->since = *now;
- 			t->aux = true;
+ 			s->dwSince = *now;
+ 			s->oAux = true;
  		}
-		else if(TIME_OVER(*now, t->since + t->interval))
+		else if(TIME_OVER(*pdwNow, s->dwSince + s->dwInterval))
 		{
-				t->since = *now;
+				s->dwSince = *pdwNow;
 				(*cb)();
 		}
 		else
@@ -29,7 +29,7 @@ void vTimeoutCheck(timeout_t *t, const uint32_t *now, void(*cb)(void))
 	}
 	else
 	{
-		t->aux = false;
+		s->oAux = false;
 	}
 }
 
@@ -42,16 +42,16 @@ void vTimeoutCheck(timeout_t *t, const uint32_t *now, void(*cb)(void))
  * \param presetTime - timer is started for the time stored in
  * \return if time is over , return value is 1
  */
-_Bool oTON(ton_t *t, _Bool in, const uint32_t *now, uint32_t presetTime)
+_Bool TON(ton_t *s, _Bool oIn, const uint32_t *pdwNow, uint32_t dwPresetTime)
 {
-	if(in)
+	if(oIn)
 	{
-		if(!t->aux)
+		if(!s->oAux)
  		{
-			t->since = *now;
-			t->aux = true;
+			s->dwSince = *pdwNow;
+			s->oAux = true;
  		}
-		else if(TIME_OVER(*now, t->since + presetTime))
+		else if(TIME_OVER(*pdwNow, s->dwSince + dwPresetTime))
 		{
 			return true;
 		}
@@ -62,7 +62,7 @@ _Bool oTON(ton_t *t, _Bool in, const uint32_t *now, uint32_t presetTime)
 	}
 	else
 	{
-		t->aux = false;
+		s->oAux = false;
 	}
 
 	return false;

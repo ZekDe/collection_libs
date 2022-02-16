@@ -22,21 +22,21 @@
  * \param catch - related value to catch
  * \param cb - callback function
  */
-void vRisingEdgeDetection(_Bool catch, void(*cb)(void))
+void vRisingEdgeDetection(_Bool oCatch, void(*cb)(void))
 {
-	static _Bool aux = false;
+	static _Bool oAux = false;
 
-	if (catch)
+	if (oCatch)
 	{
-		if (!aux)
+		if (!oAux)
 		{
-			aux = true;
+			oAux = true;
 			(*cb)();
 		}
 	}
 	else
 	{
-		aux = false;
+		oAux = false;
 	}
 }
 
@@ -47,21 +47,21 @@ void vRisingEdgeDetection(_Bool catch, void(*cb)(void))
  * \param catch - related value to catch
  * \return - 1 is caught
  */
-_Bool oRisingEdgeDetection(_Bool catch)
+_Bool oRisingEdgeDetection(_Bool oCatch)
 {
-	static _Bool aux = false;
+	static _Bool oAux = false;
 
-	if (catch)
+	if (oCatch)
 	{
-		if (!aux)
+		if (!oAux)
 		{
-			aux = true;
+			oAux = true;
 			return true;
 		}
 	}
 	else
 	{
-		aux = false;
+		oAux = false;
 	}
 	return false;
 }
@@ -73,9 +73,9 @@ _Bool oRisingEdgeDetection(_Bool catch)
  * @param breakTheSeal - variable that break the sealing
  * @param out - result is 1 or 0
  */
-void vSeal(_Bool seal, _Bool breakTheSeal, _Bool *out)
+void seal(_Bool oSeal, _Bool oBreakTheSeal, _Bool *poOut)
 {
-	*out = (((seal) || (*out)) && !breakTheSeal);
+	*poOut = (((oSeal) || (*poOut)) && !oBreakTheSeal);
 }
 
 /**
@@ -85,16 +85,9 @@ void vSeal(_Bool seal, _Bool breakTheSeal, _Bool *out)
  * @param R
  * @param Q
  */
-void vSR(_Bool S, _Bool R, _Bool *Q)
+void SR(_Bool oS, _Bool oR, _Bool *poQ)
 {
-	if(S && R)
-	{
-		*Q = false;
-	}
-	else
-	{
-		*Q = S || (!R && *Q);
-	}
+	(oS && oR) ? *poQ = false : (*poQ = oS || (!oR && *poQ));
 }
 
 

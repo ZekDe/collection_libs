@@ -5,8 +5,8 @@
 #include "stdbool.h"
 
 // these two macros are used to control "vTimeoutCheck"
-#define TIMEOUT_EN(t, x)				(t)->in = (x)
-#define TIMEOUT_SET_INTERVAL(t, x)	(t)->interval = (x)
+#define TIMEOUT_EN(s, x)				(s)->oIn = (x)
+#define TIMEOUT_SET_INTERVAL(s, x)	(s)->dwInterval = (x)
 /**
  * \def TIME_OVER
  * \brief check if time over in max 24.8 days acc to ms
@@ -16,20 +16,20 @@
 
 typedef struct
 {
-	_Bool in;
-	_Bool aux;
-	uint32_t interval;
-	uint32_t since;
+	_Bool oIn;
+	_Bool oAux;
+	uint32_t dwInterval;
+	uint32_t dwSince;
 } timeout_t;
 
 typedef struct
 {
-	_Bool aux;
-	uint32_t since;
+	_Bool oAux;
+	uint32_t dwSince;
 } ton_t;
 
-void vTimeoutCheck(timeout_t *t, const uint32_t *now, void(*cb)(void));
-_Bool oTON(ton_t *t, _Bool in, const uint32_t *now, uint32_t presetTime);
+void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void));
+_Bool TON(ton_t *s, _Bool oIn, const uint32_t *pdwNow, uint32_t dwPresetTime);
 
 
 #endif /* TIMEOUT_H */

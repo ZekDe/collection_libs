@@ -122,7 +122,7 @@ int main(void)
   SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
 
 
-  if(eCBInit(&sSpecialBuffer,buffer, 5, sizeof(uint32_t)) == CB_FAILED)
+  if(cbInit(&sSpecialBuffer,buffer, 5, sizeof(uint32_t)) == CB_FAILED)
   {
 	  // never here
   }
@@ -142,7 +142,7 @@ int main(void)
 
 	oStart = LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0) != 0;
 	// ignore the start button if it is pressed a few times or in any time
-	vSeal(oStart, oStop, &oStartStop);
+	seal(oStart, oStop, &oStartStop);
 	oOut = oRisingEdgeDetection(oStartStop);
 
 	// Network 1 - check everything and start the scenario
@@ -150,14 +150,14 @@ int main(void)
 
 	// Network 2 - (S1-S2) Piston Forward
 	oPistonMove = (_Bool)(bOperation == 1);
-	MOVE(oTON(&sTon, (_Bool)(bOperation == 1), &systick, 3000), bOperation, 2);
+	MOVE(TON(&sTon, (_Bool)(bOperation == 1), &systick, 3000), bOperation, 2);
 
 
 	//Network 3 - (S2-S3) Has piston reached end?
 	MOVE((_Bool)((bOperation == 2) && oPistonEndPoint), bOperation, 3);
 
 	//Network 4 - END
-	MOVE(oTON(&sTon1, (_Bool)(bOperation == 3), &systick,3000), bOperation, 0);
+	MOVE(TON(&sTon1, (_Bool)(bOperation == 3), &systick,3000), bOperation, 0);
 
 	// Network 5 - Stop the scenario
 	MOVE(!oStartStop, bOperation, 0);
@@ -166,7 +166,7 @@ int main(void)
 	// vTimeoutCheck function control
 	if(oStartStop)
 		{TIMEOUT_EN(&sBtnTimeout,true);}
-		vTimeoutCheck(&sBtnTimeout, &systick, vBtnPressed);
+		timeoutCheck(&sBtnTimeout, &systick, vBtnPressed);
   }
   /* USER CODE END 3 */
 }
@@ -225,7 +225,7 @@ void vBtnPressedOnce(void)
 //	CBRead(&specialBuffer, (uint32_t*)&testVal);
 }
 
-uint32_t dwGetus(uint32_t cyc)
+uint32_t getus(uint32_t cyc)
 {
 	return cyc / (SystemCoreClock / us_PER_sec);
 }

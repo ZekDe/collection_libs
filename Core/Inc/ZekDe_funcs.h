@@ -4,9 +4,9 @@
 #include "stdint.h"
 #include "stdbool.h"
 
-void vRisingEdgeDetection(_Bool catch, void(*cb)(void));
-_Bool oRisingEdgeDetection(_Bool catch);
-void vSeal(_Bool seal, _Bool breakTheSeal, _Bool *out);
-void vSR(_Bool S, _Bool R, _Bool *Q);
+void vRisingEdgeDetection(_Bool oCatch, void(*cb)(void));
+_Bool oRisingEdgeDetection(_Bool oCatch);
+void seal(_Bool oSeal, _Bool oBreakTheSeal, _Bool *poOut);
+void SR(_Bool oS, _Bool oR, _Bool *poQ);
 
 #endif /* ZEKDE_FUNCS_H */

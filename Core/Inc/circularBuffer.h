@@ -20,10 +20,10 @@ typedef enum
 	CB_EMPTY,
 }circularBuffer_error_t;
 
-circularBuffer_error_t eCBInit(circularBuffer_t *cb, void *buffer, uint32_t capacity, uint32_t sz);
-uint32_t dwCBlength(circularBuffer_t *cb);
-circularBuffer_error_t eCBWrite(circularBuffer_t *cb, const void *item);
-circularBuffer_error_t eCBRead(circularBuffer_t *cb, void *item);
+circularBuffer_error_t cbInit(circularBuffer_t *cb, void *buffer, uint32_t capacity, uint32_t sz);
+uint32_t cblength(circularBuffer_t *cb);
+circularBuffer_error_t cbWrite(circularBuffer_t *cb, const void *item);
+circularBuffer_error_t cbRead(circularBuffer_t *cb, void *item);
 
 
 #endif /* CIRCULARBUFFER_H */

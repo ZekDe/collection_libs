@@ -1,7 +1,7 @@
 #include "circularBuffer.h"
 #include "string.h"
 
-circularBuffer_error_t eCBInit(circularBuffer_t *cb, void *buffer, uint32_t capacity, uint32_t sz)
+circularBuffer_error_t cbInit(circularBuffer_t *cb, void *buffer, uint32_t capacity, uint32_t sz)
 {
   const uint32_t incremented_capacity = capacity + 1; // Add extra element to evaluate count
   if((buffer == NULL) || (cb == NULL) || (sz == 0))
@@ -17,12 +17,12 @@ circularBuffer_error_t eCBInit(circularBuffer_t *cb, void *buffer, uint32_t capa
   return CB_SUCCESS;
 }
 
-uint32_t dwCBlength(circularBuffer_t *cb)
+uint32_t cblength(circularBuffer_t *cb)
 {
 	return (uint32_t)(int32_t)((char *)cb->buffer_end - (char *)cb->buffer);
 }
 
-circularBuffer_error_t eCBWrite(circularBuffer_t *cb, const void *item)
+circularBuffer_error_t cbWrite(circularBuffer_t *cb, const void *item)
 {
   const uint32_t buffer_length = dwCBlength(cb);
   const uint32_t capacity_length = buffer_length - cb->sz;
@@ -45,7 +45,7 @@ circularBuffer_error_t eCBWrite(circularBuffer_t *cb, const void *item)
   return CB_SUCCESS;
 }
 
-circularBuffer_error_t eCBRead(circularBuffer_t *cb, void *item)
+circularBuffer_error_t cbRead(circularBuffer_t *cb, void *item)
 {
   if(cb->head == cb->tail)
   {
