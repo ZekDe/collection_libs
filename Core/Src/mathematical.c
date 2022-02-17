@@ -31,10 +31,10 @@ void printMatrix(const float *pfIn, uint32_t dwRow, uint32_t dwCol)
 
 uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
 {
-  int i;
+  uint32_t i;
   float fTemp0;
   float fTemp1;
-  int fTemp2;
+  uint32_t fTemp2;
   float fDiff;
   float fBeginAbs;
   float fEndAbs;
@@ -60,7 +60,7 @@ uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
   }
   else
   {
-    fTemp0 = floor(((float)fEnd - fBegin) / fInterval + 0.5);
+    fTemp0 = floorf(((float)fEnd - fBegin) / fInterval + 0.5F);
     fTemp1 = fBegin + fTemp0 * fInterval;
     if (fInterval > 0.0F) {
       fDiff = fTemp1 - fEnd;
@@ -68,14 +68,14 @@ uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
       fDiff = fEnd - fTemp1;
     }
 
-    fBeginAbs = fabs(fBegin);
-    fEndAbs = fabs(fEnd);
+    fBeginAbs = fabsf(fBegin);
+    fEndAbs = fabsf(fEnd);
     if (fBeginAbs > fEndAbs)
     {
       fEndAbs = fBeginAbs;
     }
 
-    if (fabs(fDiff) < (k_FLT_EPSILON * fmax(fabs(fBegin), fEnd)))
+    if (fabsf(fDiff) < (k_FLT_EPSILON * fmaxf(fabsf(fBegin), fEnd)))
     {
       fTemp0++;
       fNewEnd = fEnd;
@@ -87,12 +87,12 @@ uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
     else
     {
       fTemp0++;
-      fNewEnd = (float)fTemp1;
+      fNewEnd = fTemp1;
     }
 
     if (fTemp0 >= 0.0)
     {
-      n = (int)fTemp0;
+      n = (uint32_t)fTemp0;
     }
     else
     {
