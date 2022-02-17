@@ -9,6 +9,7 @@
 #define MATHEMATICAL_H
 
 void printMatrix(const float *pfIn, uint32_t dwRow, uint32_t dwCol);
+uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector);
 void diag(const float *pfIn, float *pfOut, uint32_t dwRowCol);
 
 
