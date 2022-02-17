@@ -31,15 +31,16 @@ void printMatrix(const float *pfIn, uint32_t dwRow, uint32_t dwCol)
 
 uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
 {
-  float temp0;
-  float temp1;
-  float temp4;
-  float cdiff;
+  int i;
+  float fTemp0;
+  float fTemp1;
+  int fTemp2;
+  float fDiff;
   float fBeginAbs;
   float fEndAbs;
-  float bnew;
-  uint32_t temp3;
-  uint32_t n;
+  float fNewEnd;
+  int n;
+  float fTemp3;
   uint32_t retVal = 0;
 
   if((fInterval == 0.0F) || ((fBegin < fEnd) && (fInterval < 0.0F)) ||
@@ -49,9 +50,9 @@ uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
   }
   else if (((float)floorf(fBegin) == fBegin) && ((float)floorf(fInterval) == fInterval))
   {
-        temp3 = (uint32_t)(float)floorf((fEnd - fBegin) / fInterval);
-        retVal = temp3 + 1;
-        for (uint32_t i = 0; i <= temp3; i++)
+        fTemp2 = (int)(float)floorf((fEnd - fBegin) / fInterval);
+        retVal = fTemp2 + 1;
+        for (i = 0; i <= fTemp2; i++)
 	    {
             pfVector[i] = fBegin + fInterval * (float)i;
         }
@@ -59,12 +60,12 @@ uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
   }
   else
   {
-    temp0 = floor(((float)fEnd - fBegin) / fInterval + 0.5);
-    temp1 = fBegin + temp0 * fInterval;
+    fTemp0 = floor(((float)fEnd - fBegin) / fInterval + 0.5);
+    fTemp1 = fBegin + fTemp0 * fInterval;
     if (fInterval > 0.0F) {
-      cdiff = temp1 - fEnd;
+      fDiff = fTemp1 - fEnd;
     } else {
-      cdiff = fEnd - temp1;
+      fDiff = fEnd - fTemp1;
     }
 
     fBeginAbs = fabs(fBegin);
@@ -74,24 +75,24 @@ uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
       fEndAbs = fBeginAbs;
     }
 
-    if (fabs(cdiff) < EPSILON * fEndAbs)
+    if (fabs(fDiff) < (k_FLT_EPSILON * fmax(fabs(fBegin), fEnd)))
     {
-      temp0++;
-      bnew = fEnd;
+      fTemp0++;
+      fNewEnd = fEnd;
     }
-    else if (cdiff > 0.0)
+    else if (fDiff > 0.0F)
     {
-      bnew = (float)(fBegin + (temp0 - 1.0) * fInterval);
+      fNewEnd = (fBegin + (fTemp0 - 1.0F) * fInterval);
     }
     else
     {
-      temp0++;
-      bnew = (float)temp1;
+      fTemp0++;
+      fNewEnd = (float)fTemp1;
     }
 
-    if (temp0 >= 0.0)
+    if (fTemp0 >= 0.0)
     {
-      n = (int)temp0;
+      n = (int)fTemp0;
     }
     else
     {
@@ -105,24 +106,24 @@ uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector)
       pfVector[0] = fBegin;
       if (n > 1)
       {
-        pfVector[n - 1] = bnew;
-        temp3 = (n - 1) / 2;
-        for (uint32_t i = 0; i <= temp3 - 2; i++)
+        pfVector[n - 1] = fNewEnd;
+        fTemp2 = (n - 1) / 2;
+        for (i = 0; i <= (fTemp2 - 2); i++)
         {
-          temp4 = (float)(i + 1) * fInterval;
-          pfVector[i + 1] = fBegin + temp4;
-          pfVector[(n - i) - 2] = bnew - temp4;
+          fTemp3 = (float)(i + 1) * fInterval;
+          pfVector[i + 1] = fBegin + fTemp3;
+          pfVector[(n - i) - 2] = fNewEnd - fTemp3;
         }
 
-        if (temp3 << 1 == n - 1)
+        if (fTemp2 << 1 == n - 1)
         {
-          pfVector[temp3] = (fBegin + bnew) / 2.0F;
+          pfVector[fTemp2] = (fBegin + fNewEnd) / 2.0F;
         }
         else
         {
-          temp4 = (float)temp3 * fInterval;
-          pfVector[temp3] = fBegin + temp4;
-          pfVector[temp3 + 1] = bnew - temp4;
+          fTemp3 = (float)fTemp2 * fInterval;
+          pfVector[fTemp2] = fBegin + fTemp3;
+          pfVector[fTemp2 + 1] = fNewEnd - fTemp3;
         }
       }
     }
