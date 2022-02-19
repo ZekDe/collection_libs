@@ -90,7 +90,7 @@ void SR(_Bool oS, _Bool oR, _Bool *poQ)
 	(oS && oR) ? *poQ = false : (*poQ = oS || (!oR && *poQ));
 }
 
-void float map(float fx, float fInMin, float fInMax,
+float map(float fx, float fInMin, float fInMax,
 			   float fOutMin, float fOutMax)
 {
 	return (fx - fInMin) * (fOutMax - fOutMin) / (fInMax - fInMin) + fOutMin;

@@ -5,6 +5,7 @@
  *      Author: Duatepe
  */
 #include "mathematical.h"
+#include "math.h"
 
 /**
  * \fn void printMatrix(const float*, uint32_t, uint32_t)

@@ -21,6 +21,7 @@
  */
 #define SIGNUM(x)				((x) > 0) - ((x) < 0)
 #define IS_ODD_NUMBER(x)		(((x) & 1) != 0)
+#define IS_POWEROF2				(x) && !((x) & ((x)-1))
 #define SWAP_BYTE(x)			(x) = ( (((x) & 0x0F) << 4) | (((x) & 0xF0) >> 4) )
 
 /**
@@ -29,6 +30,59 @@
  * en state '1' is active
  */
 #define MOVE(en, out, in)		(en) ? ((out) = (in)): 0
+
+/**
+ * \def F2S
+ * \brief float to single precision
+ *
+ */
+#define F2S(x)	*((uint32_t*)(&(x)))
+
+/**
+ * \def S2F
+ * \brief single precision to float
+ *
+ */
+#define S2F(x)	*((float*)&(x))
+
+/**
+ * \def IS_LITTLE_ENDIAN
+ * \brief check the system if it is little endian
+ *
+ */
+#define IS_LITTLE_ENDIAN() (1 == *(uint8_t *)&(const int){1})
+
+/**
+ * \def HIGH8
+ * \brief high 8 bit of an 16 bit for little endian
+ *
+ */
+#define HIGH8(x)	*(((uint8_t*)&(x)) + 1)
+/**
+ * \def LOW8
+ * \brief low 8 bit of 16 bit
+ *
+ */
+#define LOW8(x)		*((uint8_t*)&(x))
+
+/**
+ * \def PARSE_BYTES
+ * \brief
+ * \example
+ *
+ *  uint8_t *pb = NULL;
+ *  float *pfVal = NULL;
+ *  float fVal = 1.235;
+ *  PARSE_BYTES(pb, fVal);
+ *  MERGE_BYTES(pfVal, pb, float);
+ *
+ */
+#define PARSE_BYTES(p, val)	(p) = (uint8_t*)&(val)
+#define MERGE_BYTES(val, x, type)	(val) = (type*)(x)
+
+#define SIZEX(x)	(sizeof((x)) / sizeof(*(x)))
+
+#define CLEAR_STRUCT(s)	memset(&s, 0, sizeof(s));
 
 typedef struct
 {

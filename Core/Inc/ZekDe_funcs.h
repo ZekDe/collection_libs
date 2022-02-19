@@ -8,7 +8,7 @@ void vRisingEdgeDetection(_Bool oCatch, void(*cb)(void));
 _Bool oRisingEdgeDetection(_Bool oCatch);
 void seal(_Bool oSeal, _Bool oBreakTheSeal, _Bool *poOut);
 void SR(_Bool oS, _Bool oR, _Bool *poQ);
-void float map(float x, float inMin, float inMax,
-			   float outMin, float outMax);
+float map(float fx, float fInMin, float fInMax,
+			   float fOutMin, float fOutMax);
 
 #endif /* ZEKDE_FUNCS_H */

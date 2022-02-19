@@ -8,6 +8,8 @@
 #ifndef MATHEMATICAL_
 #define MATHEMATICAL_H
 
+#include "stdint.h"
+
 #define k_FLT_EPSILON     0.0000001192093F
 void printMatrix(const float *pfIn, uint32_t dwRow, uint32_t dwCol);
 uint32_t setVector(float fBegin, float fInterval, float fEnd, float *pfVector);
