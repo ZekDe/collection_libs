@@ -3,56 +3,54 @@
 #include <math.h>
 #include <string.h>
 
-
-
 void printMatrix(const matrix_t *pS)
 {
-    for(int i = 0; i < pS->size[0]; ++i) // row
+//    printf("(%.2f)+(%.2fi) ", pS->data[i * pS->size[1] + j].re, pS->data[i * pS->size[1] + j].im);
+    for (int32_t i = 0; i < pS->size[0U]; i++)
     {
-        for(int j = 0; j < pS->size[1]; ++j) // col
+        for (int32_t j = 0; j < pS->size[1U]; j++)
         {
 #if SUPPORT_COMPLEX_NUMBER
-//            printf("(%.2f)+(%.2fi) ", pS->data[i * pS->size[1] + j].re, pS->data[i * pS->size[1] + j].im);
+          printf("(%.2f)+(%.2fi) ", pS->data[i + pS->size[0] * j].re, pS->data[i + pS->size[0] * j].im);
 #else
-//            printf("%.3f ", pS->data[i * pS->size[1] + j].re);
+          printf("(%.2f)", pS->data[i + pS->size[0] * j].re);
 #endif
-
         }
-
-//        printf("\n");
-    }
+        printf("\n");
+      }
 }
 
-void fillMatrixDataRe(creal_t *data, const real_t *dataRe, int size)
+void alignMatrix(creal_t *s, int32_t row, int32_t col)
 {
-    for(int i = 0; i < size; ++i)
-    {
-        data[i].re = dataRe[i];
-    }
-}
+   int32_t k = 0;
+   int32_t rowCol = row * col;
+   creal_t sTemp[rowCol];
 
-#if SUPPORT_COMPLEX_NUMBER
-void fillMatrixDataIm(creal_t *data, const real_t *dataIm, int size)
-{
-    for(int i = 0; i < size; ++i)
+   memcpy(sTemp, s, row * col * sizeof(creal_t));
+
+  for (int32_t i = 0; i < row; i++)
+  {
+    for (int32_t j = 0; j < col; j++)
     {
-        data[i].im = dataIm[i];
+      s[i + row * j].re = sTemp[k].re;
+      s[i + row * j].im = sTemp[k].im;
+      ++k;
     }
+  }
 }
-#endif
 
 void transpose(const matrix_t *A, matrix_t *B)
 {
   B->size[0] = A->size[1];
   B->size[1] = A->size[0];
 
-  for (int i = 0; i < A->size[1]; i++) // size[0]
+  for (int32_t i = 0; i < A->size[0]; i++) // size[0]
   {
-    for (int j = 0; j < A->size[0]; j++) // size[1]
+    for (int32_t j = 0; j < A->size[1]; j++) // size[1]
     {
-      B->data[j + B->size[1] * i].re = A->data[i + A->size[1] * j].re;
+      B->data[j + B->size[0] * i].re = A->data[i + A->size[0] * j].re;
 #if SUPPORT_COMPLEX_NUMBER
-      B->data[j + B->size[1] * i].im = -A->data[i + A->size[1] * j].im;
+      B->data[j + B->size[0] * i].im = -A->data[i + A->size[0] * j].im;
 #endif
     }
   }
@@ -65,8 +63,8 @@ void setColons(matrix_t *pfVector, float fBegin, float fInterval, float fEnd)
   float fTemp3;
   float fDiff;
   float fNewEnd;
-  int n;
-  int fTemp2;
+  uint32_t n;
+  uint32_t fTemp2;
 
   if((fInterval == 0.0F) || ((fBegin < fEnd) && (fInterval < 0.0F)) ||
              ((fEnd < fBegin) && (fInterval > 0.0F)) || (fBegin == fEnd))
@@ -76,11 +74,11 @@ void setColons(matrix_t *pfVector, float fBegin, float fInterval, float fEnd)
   }
   else if (((float)floorf(fBegin) == fBegin) && ((float)floorf(fInterval) == fInterval))
   {
-        fTemp2 = (int)(float)floorf((fEnd - fBegin) / fInterval);
+        fTemp2 = (uint32_t)(float)floorf((fEnd - fBegin) / fInterval);
         pfVector->size[1] = fTemp2 + 1;
         pfVector->size[0] = 1;
 
-        for (int i = 0; i <= fTemp2; i++)
+        for (uint32_t i = 0; i <= fTemp2; i++)
         {
             pfVector->data[i].re = fBegin + fInterval * (float)i;
         }
@@ -113,7 +111,7 @@ void setColons(matrix_t *pfVector, float fBegin, float fInterval, float fEnd)
 
     if (fTemp0 >= 0.0)
     {
-      n = (int)fTemp0;
+      n = (uint32_t)fTemp0;
     }
     else
     {
@@ -130,7 +128,7 @@ void setColons(matrix_t *pfVector, float fBegin, float fInterval, float fEnd)
       {
         pfVector->data[n - 1].re = fNewEnd;
         fTemp2 = (n - 1) / 2;
-        for (int i = 0; i <= (fTemp2 - 2); i++)
+        for (uint32_t i = 0; i <= (fTemp2 - 2); i++)
         {
           fTemp3 = (float)(i + 1) * fInterval;
           pfVector->data[i + 1].re = fBegin + fTemp3;
@@ -154,9 +152,9 @@ void setColons(matrix_t *pfVector, float fBegin, float fInterval, float fEnd)
 
 void setLinSpace(const creal_t begin, const creal_t endpoint, float count, matrix_t *X)
 {
-  int X_tmp;
-  int i;
-  int k;
+  uint32_t X_tmp;
+  uint32_t i;
+  uint32_t k;
   float delta2_re;
   float delta1_re;
   float delta2_im;
@@ -168,7 +166,7 @@ void setLinSpace(const creal_t begin, const creal_t endpoint, float count, matri
   }
 
   X->size[0] = 1;
-  i = (int)floorf(delta1_im);
+  i = (uint32_t)floorf(delta1_im);
   X->size[1] = i;
   if (i >= 1)
   {
@@ -256,3 +254,92 @@ void setLinSpace(const creal_t begin, const creal_t endpoint, float count, matri
     }
   }
 }
+
+void multiply(const matrix_t *A, const matrix_t *B, matrix_t *C)
+{
+  int32_t m;
+  int32_t i;
+  int32_t inner;
+  int32_t n;
+  int32_t j;
+  int32_t coffset;
+  int32_t boffset;
+  int32_t b_i;
+  int32_t k;
+  int32_t aoffset;
+  int32_t temp_re_tmp;
+  real_t temp_re;
+  real_t temp_im;
+
+  if ((A->size[1] == 1) || (B->size[0] == 1))
+  {
+    C->size[0] = A->size[0];
+    C->size[1] = B->size[1];
+
+    m = A->size[0];
+
+    for (i = 0; i < m; i++)
+    {
+      inner = B->size[1];
+
+      for (n = 0; n < inner; n++)
+      {
+        C->data[i + (C->size[0] * n)].re = 0.0;
+        C->data[i + (C->size[0] * n)].im = 0.0;
+        j = A->size[1];
+        for (coffset = 0; coffset < j; coffset++)
+        {
+          C->data[i + (C->size[0] * n)].re += (A->data[i + (A->size[0] * coffset)]
+            .re * B->data[coffset + (B->size[0] * n)].re) - (A->data[i +
+            (A->size[0] * coffset)].im * B->data[coffset + (B->size[0] * n)].im);
+
+          C->data[i + (C->size[0] * n)].im += (A->data[i + (A->size[0] * coffset)]
+            .re * B->data[coffset + (B->size[0] * n)].im) + (A->data[i +
+            (A->size[0] * coffset)].im * B->data[coffset + (B->size[0] * n)].re);
+
+        }
+      }
+    }
+  }
+  else
+  {
+    m = A->size[0];
+    inner = A->size[1];
+    n = B->size[1];
+    C->size[0] = A->size[0];
+    C->size[1] = B->size[1];
+
+    for (j = 0; j < n; j++)
+    {
+      coffset = j * m;
+      boffset = j * inner;
+      for (b_i = 0; b_i < m; b_i++)
+      {
+        i = coffset + b_i;
+        C->data[i].re = 0.0F;
+        C->data[i].im = 0.0F;
+      }
+
+      for (k = 0; k < inner; k++)
+      {
+        aoffset = k * m;
+        temp_re_tmp = boffset + k;
+        temp_re = B->data[temp_re_tmp].re;
+        temp_im = B->data[temp_re_tmp].im;
+
+        for (b_i = 0; b_i < m; b_i++)
+        {
+          temp_re_tmp = aoffset + b_i;
+          i = coffset + b_i;
+
+          C->data[i].re += (temp_re * A->data[temp_re_tmp].re) - (temp_im *
+            A->data[temp_re_tmp].im);
+
+          C->data[i].im += (temp_re * A->data[temp_re_tmp].im) + (temp_im *
+            A->data[temp_re_tmp].re);
+        }
+      }
+    }
+  }
+}
+
