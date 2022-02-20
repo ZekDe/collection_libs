@@ -55,12 +55,19 @@
 /**
  * \def HIGH8
  * \brief high 8 bit of an 16 bit for little endian
- *
+ * \example
+ * uint16_t num = 0xFFFA;
+ * uint8_t high = 0;
+ * high = HIGH8(num);
  */
 #define HIGH8(x)	*(((uint8_t*)&(x)) + 1)
 /**
  * \def LOW8
  * \brief low 8 bit of 16 bit
+ * \example
+ * uint8_t low = 0;
+ * uint16_t num = 0xFFFA;
+ * low = LOW8(num);
  *
  */
 #define LOW8(x)		*((uint8_t*)&(x))
