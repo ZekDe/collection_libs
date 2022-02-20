@@ -6,6 +6,12 @@
 
 #define SUPPORT_COMPLEX_NUMBER  1
 
+/**
+ * \def CREATE_EMPTY_MATRIX
+ * \brief
+ * \example
+ * CREATE_EMPTY_MATRIX(B, 3, 5);
+ */
 #define CREATE_EMPTY_MATRIX(A, row, col)\
 creal_t data##A[row * col] = {0};\
 int sizeof##A[2] = {row, col};\
@@ -14,7 +20,27 @@ matrix_t A={\
     .data = data##A,\
 };\
 
-#define CREATE_MATRIX_DATA(A, re_im, row, col) real_t data##A##re_im[row * col]
+/**
+ * \def CREATE_MATRIX
+ * \brief
+ * \example
+creal_t dataA[]=
+{
+    {1.1, 0},{2.3, 0},{5.4, 0},
+    {3.1, 0},{2.9, 0},{1.456, 0},
+    {4.62, 0},{5.65, 0},{6.78, 0},
+    {1.0, 0},{2.0, 0},{3.0, 3},
+    {3.0, 0},{4.0, 0},{5.0, 0},
+};
+CREATE_MATRIX(A, 5, 3);
+ *
+ */
+#define CREATE_MATRIX(A, row, col) \
+int sizeof##A[2] = {row, col};\
+matrix_t A={\
+    .size = sizeof##A,\
+    .data = data##A,\
+};\
 
 typedef float real_t;
 
