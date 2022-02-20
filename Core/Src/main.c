@@ -26,6 +26,10 @@
 #include <ZekDe_funcs.h>
 #include "timeout.h"
 #include "circularBuffer.h"
+#include "matrix_types.h"
+#include "basic_matrix_operations.h"
+#include "linearVector.h"
+
 
 /* USER CODE END Includes */
 
@@ -78,7 +82,44 @@ uint32_t getus(uint32_t cyc);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+creal_t dataA[]=
+{
+    {1.1, 0.0},{2.3, 0.0},{5.4, 0.0},
+    {3.1, 0.0},{2.9, 0.0},{1.456, 0.0},
+    {4.62, 0.0},{5.65, 0.0},{6.78, 0.0},
+    {1.0, 0.0},{2.0, 0.0},{3.0, 0.0},
+    {3.0, 0.0},{4.0, 0.0},{5.0, 0.0},
+};
+CREATE_MATRIX(A, 5, 3);
+CREATE_EMPTY_MATRIX(B, 3, 5);
 
+
+/* setColons */
+CREATE_EMPTY_MATRIX(colonVector, 1, 10);
+
+
+/* setLinSpace*/
+CREATE_EMPTY_MATRIX(C, 1, 5);
+
+/* matrix multiplaction */
+
+creal_t dataA1[] =
+{
+    {1.0, 0.0},{2.0, -1.0},{3.0, 0.0},
+    {4.0, 0.0},{5.0, 1.0},{6.0, 0.0},
+    {7.0, 0.0},{8.0, 0.0},{9.0, 1.0},
+};
+CREATE_MATRIX(A1, 3, 3);
+
+creal_t dataA2[] =
+{
+    {2.0, 0.0},{4.0, 2.0},
+    {0.2, 0.0},{0.1, 0.0},
+    {3.0, 0.0},{4.0, 0.0},
+};
+CREATE_MATRIX(A2, 3, 2);
+
+CREATE_EMPTY_MATRIX(A3, 3, 2);
 /* USER CODE END 0 */
 
 /**
@@ -167,6 +208,38 @@ int main(void)
 	if(oStartStop)
 		{TIMEOUT_EN(&sBtnTimeout,true);}
 		timeoutCheck(&sBtnTimeout, &systick, btnPressed);
+
+		/* Matrix */
+
+	    alignMatrix(dataA, A.size[0], A.size[1]);
+	    alignMatrix(dataB, B.size[0], B.size[1]);
+	    alignMatrix(datacolonVector, colonVector.size[0], colonVector.size[1]);
+	    alignMatrix(dataC, C.size[0], C.size[1]);
+	    alignMatrix(dataA1, A1.size[0], A1.size[1]);
+	    alignMatrix(dataA2, A2.size[0], A2.size[1]);
+	    alignMatrix(dataA3, A3.size[0], A3.size[1]);
+
+	    transpose(&A, &B);
+	    printf("MATRIX A\n");
+	    printMatrix(&A);
+	    printf("MATRIX B\n");
+	    printMatrix(&B);
+
+	    setColons(&colonVector, 1.2f, 0.1f, 2.0f);
+	    printf("MATRIX colonVector setColons\n");
+	    CREATE_EMPTY_MATRIX(rowVector, colonVector.size[0], colonVector.size[1]);
+	    transpose(&colonVector, &rowVector);
+	    printMatrix(&rowVector);
+
+	    setLinSpace((creal_t){1,2}, (creal_t){2,3}, 5, &C);
+	    printf("MATRIX C linspace\n");
+	    printMatrix(&C);
+
+	    multiply(&A1, &A2, &A3);
+	    printf("MATRIX A3\n");
+	    printMatrix(&A3);
+
+	    /* Matrix */
 
   }
   /* USER CODE END 3 */
