@@ -168,34 +168,6 @@ int main(void)
 		{TIMEOUT_EN(&sBtnTimeout,true);}
 		timeoutCheck(&sBtnTimeout, &systick, btnPressed);
 
-	/*********mathematical.c*********/
-	    alignMatrix(dataA, 5, 3);
-	    alignMatrix(dataB, 5, 3);
-	    alignMatrix(datacolonVector, 1, 10);
-	    alignMatrix(dataC, 5, 3);
-	    alignMatrix(dataA1, 3, 3);
-	    alignMatrix(dataA2, 3, 2);
-	    alignMatrix(dataA3, 3, 2);
-
-	    transpose(&A, &B);
-	    printf("MATRIX A\n");
-	    printMatrix(&A);
-	    printf("MATRIX B\n");
-	    printMatrix(&B);
-
-	    setColons(&colonVector, 1.2f, 0.1f, 2.0f);
-	    printf("MATRIX colonVector setColons\n");
-	    printMatrix(&colonVector);
-
-	    setLinSpace((creal_t){1,2}, (creal_t){2,3}, 5, &C);
-	    printf("MATRIX C linspace\n");
-	    printMatrix(&C);
-
-	    multiply(&A1, &A2, &A3);
-	    printf("MATRIX A3\n");
-	    printMatrix(&A3);
-	 /*********mathematical.c*********/
-
   }
   /* USER CODE END 3 */
 }
