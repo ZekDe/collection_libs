@@ -26,10 +26,6 @@
 #include <ZekDe_funcs.h>
 #include "timeout.h"
 #include "circularBuffer.h"
-#include "matrix_types.h"
-#include "basic_matrix_operations.h"
-#include "linearVector.h"
-
 
 /* USER CODE END Includes */
 
@@ -82,44 +78,7 @@ uint32_t getus(uint32_t cyc);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-creal_t dataA[]=
-{
-    {1.1, 0.0},{2.3, 0.0},{5.4, 0.0},
-    {3.1, 0.0},{2.9, 0.0},{1.456, 0.0},
-    {4.62, 0.0},{5.65, 0.0},{6.78, 0.0},
-    {1.0, 0.0},{2.0, 0.0},{3.0, 0.0},
-    {3.0, 0.0},{4.0, 0.0},{5.0, 0.0},
-};
-CREATE_MATRIX(A, 5, 3);
-CREATE_EMPTY_MATRIX(B, 3, 5);
 
-
-/* setColons */
-CREATE_EMPTY_MATRIX(colonVector, 1, 10);
-
-
-/* setLinSpace*/
-CREATE_EMPTY_MATRIX(C, 1, 5);
-
-/* matrix multiplaction */
-
-creal_t dataA1[] =
-{
-    {1.0, 0.0},{2.0, -1.0},{3.0, 0.0},
-    {4.0, 0.0},{5.0, 1.0},{6.0, 0.0},
-    {7.0, 0.0},{8.0, 0.0},{9.0, 1.0},
-};
-CREATE_MATRIX(A1, 3, 3);
-
-creal_t dataA2[] =
-{
-    {2.0, 0.0},{4.0, 2.0},
-    {0.2, 0.0},{0.1, 0.0},
-    {3.0, 0.0},{4.0, 0.0},
-};
-CREATE_MATRIX(A2, 3, 2);
-
-CREATE_EMPTY_MATRIX(A3, 3, 2);
 /* USER CODE END 0 */
 
 /**
