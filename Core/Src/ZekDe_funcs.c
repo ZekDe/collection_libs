@@ -96,3 +96,13 @@ float map(float fx, float fInMin, float fInMax,
 	return (fx - fInMin) * (fOutMax - fOutMin) / (fInMax - fInMin) + fOutMin;
 }
 
+char* toString(enum colors value)
+{
+    switch (value) {
+        #define X(color) \
+            case color:  \
+                return #color;
+                COLORS
+        #undef X
+    }
+}
