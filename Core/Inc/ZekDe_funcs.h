@@ -4,6 +4,20 @@
 #include "stdint.h"
 #include "stdbool.h"
 
+#define COLORS \
+    X(RED)     \
+    X(BLACK)   \
+    X(WHITE)   \
+    X(BLUE)
+  
+// Creating an enum of colors
+// by macro expansion.
+enum colors {
+    #define X(value) value,
+        COLORS
+    #undef X
+};
+
 void vRisingEdgeDetection(_Bool oCatch, void(*cb)(void));
 _Bool oRisingEdgeDetection(_Bool oCatch);
 void seal(_Bool oSeal, _Bool oBreakTheSeal, _Bool *poOut);
