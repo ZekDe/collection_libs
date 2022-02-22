@@ -209,38 +209,6 @@ int main(void)
 		{TIMEOUT_EN(&sBtnTimeout,true);}
 		timeoutCheck(&sBtnTimeout, &systick, btnPressed);
 
-		/* Matrix */
-
-	    alignMatrix(dataA, A.size[0], A.size[1]);
-	    alignMatrix(dataB, B.size[0], B.size[1]);
-	    alignMatrix(datacolonVector, colonVector.size[0], colonVector.size[1]);
-	    alignMatrix(dataC, C.size[0], C.size[1]);
-	    alignMatrix(dataA1, A1.size[0], A1.size[1]);
-	    alignMatrix(dataA2, A2.size[0], A2.size[1]);
-	    alignMatrix(dataA3, A3.size[0], A3.size[1]);
-
-	    transpose(&A, &B);
-	    printf("MATRIX A\n");
-	    printMatrix(&A);
-	    printf("MATRIX B\n");
-	    printMatrix(&B);
-
-	    setColons(&colonVector, 1.2f, 0.1f, 2.0f);
-	    printf("MATRIX colonVector setColons\n");
-	    CREATE_EMPTY_MATRIX(rowVector, colonVector.size[0], colonVector.size[1]);
-	    transpose(&colonVector, &rowVector);
-	    printMatrix(&rowVector);
-
-	    setLinSpace((creal_t){1,2}, (creal_t){2,3}, 5, &C);
-	    printf("MATRIX C linspace\n");
-	    printMatrix(&C);
-
-	    multiply(&A1, &A2, &A3);
-	    printf("MATRIX A3\n");
-	    printMatrix(&A3);
-
-	    /* Matrix */
-
   }
   /* USER CODE END 3 */
 }
