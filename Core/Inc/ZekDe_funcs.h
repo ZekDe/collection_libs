@@ -12,11 +12,11 @@
   
 // Creating an enum of colors
 // by macro expansion.
-enum colors {
+typedef enum colors {
     #define X(value) value,
         COLORS
     #undef X
-};
+}colors_t;
 
 void vRisingEdgeDetection(_Bool oCatch, void(*cb)(void));
 _Bool oRisingEdgeDetection(_Bool oCatch);

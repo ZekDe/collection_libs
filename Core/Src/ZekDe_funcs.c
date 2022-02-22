@@ -102,7 +102,7 @@ char* toString(enum colors value)
         #define X(color) \
             case color:  \
                 return #color;
-                COLORS
+                COLORS;
         #undef X
     }
 }
