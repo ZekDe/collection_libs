@@ -22,8 +22,15 @@
 #define SIGNUM(x)			((x) > 0) - ((x) < 0)
 #define IS_ODD_NUMBER(x)		(((x) & 1) != 0)
 #define IS_POWEROF2			(x) && !((x) & ((x)-1))
+
+/**
+ * \def MIN(x, y) and MAX(x, y
+ * \brief get the minimum of int x and y
+ * 
+ */
 #define MIN(x, y)			(y) ^ (((x) ^ (y)) & -((x) < (y)))
 #define MAX(x, y)			(x) ^ (((x) ^ (y)) & -((x) < (y)))
+
 #define SWAP_BYTE(x)			(x) = ( (((x) & 0x0F) << 4) | (((x) & 0xF0) >> 4) )
 
 /**
