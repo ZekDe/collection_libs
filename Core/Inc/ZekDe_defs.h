@@ -19,9 +19,11 @@
  * if x > 0 -> 1
  * \return -1, 0, 1
  */
-#define SIGNUM(x)				((x) > 0) - ((x) < 0)
+#define SIGNUM(x)			((x) > 0) - ((x) < 0)
 #define IS_ODD_NUMBER(x)		(((x) & 1) != 0)
-#define IS_POWEROF2				(x) && !((x) & ((x)-1))
+#define IS_POWEROF2			(x) && !((x) & ((x)-1))
+#define MIN(x, y)			(y) ^ (((x) ^ (y)) & -((x) < (y)))
+#define MAX(x, y)			(x) ^ (((x) ^ (y)) & -((x) < (y)))
 #define SWAP_BYTE(x)			(x) = ( (((x) & 0x0F) << 4) | (((x) & 0xF0) >> 4) )
 
 /**
