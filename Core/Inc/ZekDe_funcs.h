@@ -24,5 +24,7 @@ void seal(_Bool oSeal, _Bool oBreakTheSeal, _Bool *poOut);
 void SR(_Bool oS, _Bool oR, _Bool *poQ);
 float map(float fx, float fInMin, float fInMax,
 			   float fOutMin, float fOutMax);
+uint8_t getNumOfBitsSet(uint32_t dwVal);
+
 
 #endif /* ZEKDE_FUNCS_H */
