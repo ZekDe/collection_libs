@@ -96,6 +96,17 @@ float map(float fx, float fInMin, float fInMax,
 	return (fx - fInMin) * (fOutMax - fOutMin) / (fInMax - fInMin) + fOutMin;
 }
 
+uint8_t getNumOfBitsSet(uint32_t dwVal)
+{
+   uint8_t i = 0;
+   for (i = 0; dwVal; dwVal >>= 1)
+   {
+      i += dwVal & 1;
+   }
+   return i;
+}
+
+
 char* toString(enum colors value)
 {
     switch (value) {
