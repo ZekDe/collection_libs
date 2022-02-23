@@ -25,6 +25,7 @@ void SR(_Bool oS, _Bool oR, _Bool *poQ);
 float map(float fx, float fInMin, float fInMax,
 			   float fOutMin, float fOutMax);
 uint8_t getNumOfBitsSet(uint32_t dwVal);
+uint8_t getNumOfBitsSet_32bits(uint32_t dwVal);
 char* toString(enum colors value);
 
 
