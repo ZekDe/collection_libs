@@ -107,9 +107,9 @@ uint8_t getNumOfBitsSet(uint32_t dwVal)
 }
 uint8_t getNumOfBitsSet_32bits(uint32_t dwVal)	
 {
-   dwVal = dwValv - ((dwVal >> 1) & 0x55555555);                    // reuse input as temporary
-   dwVal = (dwVal & 0x33333333) + ((dwVal >> 2) & 0x33333333);     // temp
-   return ((vdwVal + (dwVal >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;   // count	
+   dwVal = dwVal - ((dwVal >> 1) & 0x55555555);
+   dwVal = (dwVal & 0x33333333) + ((dwVal >> 2) & 0x33333333);
+   return ((dwVal + (dwVal >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
 }
 
 char* toString(enum colors value)

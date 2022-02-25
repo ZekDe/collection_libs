@@ -3,7 +3,7 @@
 #define TIME_PASSED(now, since)	(now >= since) ? (now - since) : (now + (UINT32_MAX - since))
 
 /**
- * \fn void vTimeoutCheck(timeout_t*, const uint32_t*, void(*)(void))
+ * \fn void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
  * \brief Start a periodic timer with a specified duration .
  *
  * \param t - variables are stored which function needs
@@ -34,7 +34,7 @@ void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
 }
 
 /**
- * \fn uint8_t oTON(timeout_t*, uint32_t, uint32_t, uint32_t)
+ * \fn uint8_t TON(ton_t *s, _Bool oIn, const uint32_t *pdwNow, uint32_t dwPresetTime)
  * \brief Start a timer with a specified duration as on-delay.
  * \param t - variables are stored which function needs
  * \param in - timer is executed when the "in" state changes from 0 to 1

@@ -9,7 +9,7 @@
 #define TIMEOUT_SET_INTERVAL(s, x)	(s)->dwInterval = (x)
 /**
  * \def TIME_OVER
- * \brief check if time over in max 24.8 days acc to ms
+ * \brief check if time over in max 24.8 days acc.to ms
  *
  */
 #define TIME_OVER(time, target) (uint32_t)((time) - (target) < 0x80000000UL)
