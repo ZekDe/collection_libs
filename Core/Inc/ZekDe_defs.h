@@ -19,9 +19,9 @@
  * if x > 0 -> 1
  * \return -1, 0, 1
  */
-#define SIGNUM(x)			((x) > 0) - ((x) < 0)
+#define SIGNUM(x)				((x) > 0) - ((x) < 0)
 #define IS_ODD_NUMBER(x)		(((x) & 1) != 0)
-#define IS_POWEROF2			(x) && !((x) & ((x)-1))
+#define IS_POWEROF2(x)			(x) && !((x) & ((x)-1))
 
 /**
  * \def MIN(x, y) and MAX(x, y

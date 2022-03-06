@@ -65,6 +65,10 @@ static uint32_t buffer[5] = {0};
 
 uint32_t systick = 0;
 
+uint32_t knob3000 = 0;
+uint32_t since = 0;
+int8_t section = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,6 +77,7 @@ void SystemClock_Config(void);
 void btnPressed(void);
 void btnPressedOnce(void);
 uint32_t getus(uint32_t cyc);
+int8_t getSection(uint32_t dwKnobVal);
 
 /* USER CODE END PFP */
 
@@ -128,7 +133,7 @@ int main(void)
   }
 
   systick = 0;
-  TIMEOUT_SET_INTERVAL(&sBtnTimeout,1000);
+  TIMEOUT_SET_INTERVAL(&sBtnTimeout,50);
 
   /* USER CODE END 2 */
 
@@ -163,13 +168,50 @@ int main(void)
 	MOVE(!oStartStop, bOperation, 0);
 
 
-	// vTimeoutCheck function control
-	if(oStartStop)
+	// timeoutCheck function control
+	if(oStart)
 		{TIMEOUT_EN(&sBtnTimeout,true);}
 		timeoutCheck(&sBtnTimeout, &systick, btnPressed);
 
+
+
+
+		section = getSection(knob3000);
+
+
   }
   /* USER CODE END 3 */
+}
+
+int8_t getSection(uint32_t dwKnobVal)
+{
+	uint32_t dwPassed = 0;
+	static uint32_t dwSince = 0;
+	static _Bool oLock = false;
+	static uint8_t bRetVal = 0;
+
+	if(!oLock)
+	{
+		oLock = true;
+		dwSince = dwKnobVal;
+	}
+	dwPassed = (dwKnobVal >= dwSince) ?
+			 (dwKnobVal - dwSince) : (dwKnobVal + (3000 - dwSince));
+
+	if(dwPassed >= 100 && dwPassed <= 300)
+		bRetVal = 1;
+	else if(dwPassed >= 350 && dwPassed <= 450)
+		bRetVal = 2;
+	else if(dwPassed >= 500 && dwPassed <= 600)
+		bRetVal = 3;
+	else if(dwPassed >= 650 && dwPassed <= 750)
+		bRetVal = 4;
+	else if(dwPassed >= 800 && dwPassed <= 950)
+		bRetVal = 5;
+	else if(dwPassed >= 1000 && dwPassed <= 3000)
+		bRetVal = 6;
+
+	return bRetVal;
 }
 
 /**
@@ -216,6 +258,9 @@ void SystemClock_Config(void)
 void btnPressed(void)
 {
 	TIMEOUT_EN(&sBtnTimeout, false);
+	knob3000 += 30 ;
+	if(knob3000 >= 3000)
+		knob3000 = 0;
 	LL_GPIO_TogglePin(GPIOD, LL_GPIO_PIN_13);
 //	CBWrite(&specialBuffer, (uint32_t*)&systick);
 //	length = CBlength(&specialBuffer);
@@ -228,7 +273,7 @@ void btnPressedOnce(void)
 
 uint32_t getus(uint32_t cyc)
 {
-	return cyc / (SystemCoreClock / us_PER_sec);
+	return (cyc * us_PER_sec) / SystemCoreClock;
 }
 /* USER CODE END 4 */
 
