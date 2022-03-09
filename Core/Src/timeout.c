@@ -19,7 +19,7 @@ void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
  			s->dwSince = *pdwNow;
  			s->oAux = true;
  		}
-		else if(TIME_OVER(*pdwNow, s->dwSince + s->dwInterval))
+		else if(TIME_OVER(s->dwSince + s->dwInterval, *pdwNow))
 		{
 				s->dwSince = *pdwNow;
 				(*cb)();
