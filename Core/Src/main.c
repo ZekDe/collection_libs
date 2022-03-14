@@ -77,7 +77,6 @@ void SystemClock_Config(void);
 void btnPressed(void);
 void btnPressedOnce(void);
 uint32_t getus(uint32_t cyc);
-int8_t getSection(uint32_t dwKnobVal);
 
 /* USER CODE END PFP */
 
@@ -183,36 +182,6 @@ int main(void)
   /* USER CODE END 3 */
 }
 
-int8_t getSection(uint32_t dwKnobVal)
-{
-	uint32_t dwPassed = 0;
-	static uint32_t dwSince = 0;
-	static _Bool oLock = false;
-	static uint8_t bRetVal = 0;
-
-	if(!oLock)
-	{
-		oLock = true;
-		dwSince = dwKnobVal;
-	}
-	dwPassed = (dwKnobVal >= dwSince) ?
-			 (dwKnobVal - dwSince) : (dwKnobVal + (3000 - dwSince));
-
-	if(dwPassed >= 100 && dwPassed <= 300)
-		bRetVal = 1;
-	else if(dwPassed >= 350 && dwPassed <= 450)
-		bRetVal = 2;
-	else if(dwPassed >= 500 && dwPassed <= 600)
-		bRetVal = 3;
-	else if(dwPassed >= 650 && dwPassed <= 750)
-		bRetVal = 4;
-	else if(dwPassed >= 800 && dwPassed <= 950)
-		bRetVal = 5;
-	else if(dwPassed >= 1000 && dwPassed <= 3000)
-		bRetVal = 6;
-
-	return bRetVal;
-}
 
 /**
   * @brief System Clock Configuration
