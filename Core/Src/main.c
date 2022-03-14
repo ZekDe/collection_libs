@@ -65,7 +65,6 @@ static uint32_t buffer[5] = {0};
 
 uint32_t systick = 0;
 
-uint32_t knob3000 = 0;
 uint32_t since = 0;
 int8_t section = 0;
 
@@ -173,11 +172,6 @@ int main(void)
 		timeoutCheck(&sBtnTimeout, &systick, btnPressed);
 
 
-
-
-		section = getSection(knob3000);
-
-
   }
   /* USER CODE END 3 */
 }
@@ -227,9 +221,6 @@ void SystemClock_Config(void)
 void btnPressed(void)
 {
 	TIMEOUT_EN(&sBtnTimeout, false);
-	knob3000 += 30 ;
-	if(knob3000 >= 3000)
-		knob3000 = 0;
 	LL_GPIO_TogglePin(GPIOD, LL_GPIO_PIN_13);
 //	CBWrite(&specialBuffer, (uint32_t*)&systick);
 //	length = CBlength(&specialBuffer);
