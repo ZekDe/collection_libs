@@ -4,8 +4,6 @@
 #include "stdint.h"
 #include "stdbool.h"
 
-// these two macros are used to control "vTimeoutCheck"
-#define TIMEOUT_EN(s, x)				(s)->oIn = (x)
 #define TIMEOUT_SET_INTERVAL(s, x)	(s)->dwInterval = (x)
 /**
  * \def TIME_OVER
@@ -29,6 +27,8 @@ typedef struct
 } ton_t;
 
 void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void));
+void timeoutStart(timeout_t *s);
+void timeoutStop(timeout_t *s);
 _Bool TON(ton_t *s, _Bool oIn, const uint32_t *pdwNow, uint32_t dwPresetTime);
 
 

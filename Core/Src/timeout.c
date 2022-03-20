@@ -19,7 +19,7 @@ void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
  			s->dwSince = *pdwNow;
  			s->oAux = true;
  		}
-		else if(TIME_OVER(s->dwSince + s->dwInterval, *pdwNow))
+		else if(TIME_OVER(*pdwNow, s->dwSince + s->dwInterval))
 		{
 				s->dwSince = *pdwNow;
 				(*cb)();
@@ -31,6 +31,32 @@ void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
 	{
 		s->oAux = false;
 	}
+}
+
+/**
+ * \fn void timeoutStart(timeout_t*, uint32_t)
+ * \brief
+ * \param s
+ * \param interval
+ */
+void timeoutStart(timeout_t *s)
+{
+	s->oIn = true;
+}
+
+/**
+ * \fn void timeoutStop(timeout_t*)
+ * \brief
+ * \param s
+ */
+void timeoutStop(timeout_t *s)
+{
+	s->oIn = false;
+}
+
+void timeoutSetInterval(timeout_t *s, uint32_t dwinterval)
+{
+	s->dwInterval = dwinterval;
 }
 
 /**

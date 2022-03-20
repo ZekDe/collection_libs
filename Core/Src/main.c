@@ -131,7 +131,8 @@ int main(void)
   }
 
   systick = 0;
-  TIMEOUT_SET_INTERVAL(&sBtnTimeout,50);
+  timeoutSetInterval(&sBtnTimeout, 50);
+  timeoutStart(&sBtnTimeout);
 
   /* USER CODE END 2 */
 
@@ -168,7 +169,9 @@ int main(void)
 
 	// timeoutCheck function control
 	if(oStart)
-		{TIMEOUT_EN(&sBtnTimeout,true);}
+		{
+			timeoutStart(&sBtnTimeout);
+		}
 		timeoutCheck(&sBtnTimeout, &systick, btnPressed);
 
 
@@ -220,7 +223,7 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void btnPressed(void)
 {
-	TIMEOUT_EN(&sBtnTimeout, false);
+	timeoutStop(&sBtnTimeout);
 	LL_GPIO_TogglePin(GPIOD, LL_GPIO_PIN_13);
 //	CBWrite(&specialBuffer, (uint32_t*)&systick);
 //	length = CBlength(&specialBuffer);
