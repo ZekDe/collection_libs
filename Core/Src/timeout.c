@@ -54,6 +54,12 @@ void timeoutStop(timeout_t *s)
 	s->oIn = false;
 }
 
+/**
+ * \fn void timeoutSetInterval(timeout_t*, uint32_t)
+ * \brief
+ * \param s
+ * \param dwinterval
+ */
 void timeoutSetInterval(timeout_t *s, uint32_t dwinterval)
 {
 	s->dwInterval = dwinterval;
