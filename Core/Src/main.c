@@ -24,7 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include <ZekDe_defs.h>
 #include <ZekDe_funcs.h>
-#include "timeout.h"
+#include "soft_timer.h"
 #include "circularBuffer.h"
 
 /* USER CODE END Includes */
@@ -47,7 +47,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-timeout_t sBtnTimeout;
+softTimer_t sBtnTimeout;
 circularBuffer_t sSpecialBuffer;
 
 // Scenario Control Vars
@@ -131,8 +131,8 @@ int main(void)
   }
 
   systick = 0;
-  timeoutSetInterval(&sBtnTimeout, 50);
-  timeoutStart(&sBtnTimeout);
+  timerSetInterval(&sBtnTimeout, 50);
+  timerStart(&sBtnTimeout);
 
   /* USER CODE END 2 */
 
@@ -170,9 +170,9 @@ int main(void)
 	// timeoutCheck function control
 	if(oStart)
 		{
-			timeoutStart(&sBtnTimeout);
+			timerStart(&sBtnTimeout);
 		}
-		timeoutCheck(&sBtnTimeout, &systick, btnPressed);
+		timerCheck(&sBtnTimeout, &systick, btnPressed);
 
 
   }
@@ -223,7 +223,7 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void btnPressed(void)
 {
-	timeoutStop(&sBtnTimeout);
+	timerStop(&sBtnTimeout);
 	LL_GPIO_TogglePin(GPIOD, LL_GPIO_PIN_13);
 //	CBWrite(&specialBuffer, (uint32_t*)&systick);
 //	length = CBlength(&specialBuffer);

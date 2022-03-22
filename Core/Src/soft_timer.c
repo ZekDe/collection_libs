@@ -1,4 +1,4 @@
-#include "timeout.h"
+#include "soft_timer.h"
 
 #define TIME_PASSED(now, since)	(now >= since) ? (now - since) : (now + (UINT32_MAX - since))
 
@@ -10,7 +10,7 @@
  * \param now - system tick continuously running
  * \param cb - callback function is called when the timer expired
  */
-void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
+void timerCheck(softTimer_t *s, const uint32_t *pdwNow, void(*cb)(void))
 {
 	if(s->oIn)
 	{
@@ -19,7 +19,7 @@ void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
  			s->dwSince = *pdwNow;
  			s->oAux = true;
  		}
-		else if(TIME_OVER(*pdwNow, s->dwSince + s->dwInterval))
+		else if(TIME_OVER(s->dwSince + s->dwInterval, *pdwNow))
 		{
 				s->dwSince = *pdwNow;
 				(*cb)();
@@ -39,7 +39,7 @@ void timeoutCheck(timeout_t *s, const uint32_t *pdwNow, void(*cb)(void))
  * \param s
  * \param interval
  */
-void timeoutStart(timeout_t *s)
+void timerStart(softTimer_t *s)
 {
 	s->oIn = true;
 }
@@ -49,7 +49,7 @@ void timeoutStart(timeout_t *s)
  * \brief
  * \param s
  */
-void timeoutStop(timeout_t *s)
+void timerStop(softTimer_t *s)
 {
 	s->oIn = false;
 }
@@ -60,7 +60,7 @@ void timeoutStop(timeout_t *s)
  * \param s
  * \param dwinterval
  */
-void timeoutSetInterval(timeout_t *s, uint32_t dwinterval)
+void timerSetInterval(softTimer_t *s, uint32_t dwinterval)
 {
 	s->dwInterval = dwinterval;
 }
@@ -83,7 +83,7 @@ _Bool TON(ton_t *s, _Bool oIn, const uint32_t *pdwNow, uint32_t dwPresetTime)
 			s->dwSince = *pdwNow;
 			s->oAux = true;
  		}
-		else if(TIME_OVER(*pdwNow, s->dwSince + dwPresetTime))
+		else if(TIME_OVER(s->dwSince + dwPresetTime, *pdwNow))
 		{
 			return true;
 		}
