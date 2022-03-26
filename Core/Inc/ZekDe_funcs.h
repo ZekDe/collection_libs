@@ -26,6 +26,7 @@ float map(float fx, float fInMin, float fInMax,
 			   float fOutMin, float fOutMax);
 uint8_t getNumOfBitsSet(uint32_t dwVal);
 uint8_t getNumOfBitsSet_32bits(uint32_t dwVal);
+float norm(const float *vec, uint32_t size);
 char* toString(enum colors value);
 
 

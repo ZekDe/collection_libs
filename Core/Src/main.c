@@ -167,7 +167,7 @@ int main(void)
 	MOVE(!oStartStop, bOperation, 0);
 
 
-	// timeoutCheck function control
+	// timerCheck function control
 	if(oStart)
 		{
 			timerStart(&sBtnTimeout);

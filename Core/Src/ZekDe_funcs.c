@@ -111,6 +111,34 @@ uint8_t getNumOfBitsSet_32bits(uint32_t dwVal)
    dwVal = (dwVal & 0x33333333) + ((dwVal >> 2) & 0x33333333);
    return ((dwVal + (dwVal >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
 }
+float norm(const float *vec, uint32_t size)
+{
+	float X;
+	float scale;
+	float absxk;
+	float t;
+
+	X = 0.0;
+	scale = 1.175494e-38;
+
+	for (uint32_t k = 0; k < size; k++)
+	{
+		absxk = fabs(vec[k]);
+		if (absxk > scale)
+		{
+			t = scale / absxk;
+			X = X * t * t + 1.0;
+			scale = absxk;
+		}
+		else
+		{
+			t = absxk / scale;
+			X += t * t;
+		}
+	}
+
+	return scale * sqrt(X);
+}
 
 char* toString(enum colors value)
 {
