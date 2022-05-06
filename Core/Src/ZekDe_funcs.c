@@ -22,21 +22,19 @@
  * \param catch - related value to catch
  * \param cb - callback function
  */
-void vRisingEdgeDetection(_Bool oCatch, void(*cb)(void))
+void vRisingEdgeDetection(rising_edge_detection_t s, _Bool oCatch, void(*cb)(void))
 {
-	static _Bool oAux = false;
-
 	if (oCatch)
 	{
-		if (!oAux)
+		if (!s->o_aux)
 		{
-			oAux = true;
+			s->o_aux = true;
 			(*cb)();
 		}
 	}
 	else
 	{
-		oAux = false;
+		s->o_aux = false;
 	}
 }
 
@@ -47,21 +45,19 @@ void vRisingEdgeDetection(_Bool oCatch, void(*cb)(void))
  * \param catch - related value to catch
  * \return - 1 is caught
  */
-_Bool oRisingEdgeDetection(_Bool oCatch)
+_Bool oRisingEdgeDetection(rising_edge_detection_t s, _Bool oCatch)
 {
-	static _Bool oAux = false;
-
 	if (oCatch)
 	{
-		if (!oAux)
+		if (!s->o_aux)
 		{
-			oAux = true;
+			s->o_aux = true;
 			return true;
 		}
 	}
 	else
 	{
-		oAux = false;
+		s->o_aux = false;
 	}
 	return false;
 }
