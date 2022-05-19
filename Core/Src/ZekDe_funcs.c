@@ -22,7 +22,7 @@
  * \param catch - related value to catch
  * \param cb - callback function
  */
-void vRisingEdgeDetection(rising_edge_detection_t s, _Bool oCatch, void(*cb)(void))
+void vRisingEdgeDetection(rising_edge_detection_t *s, _Bool oCatch, void(*cb)(void))
 {
 	if (oCatch)
 	{
@@ -45,7 +45,7 @@ void vRisingEdgeDetection(rising_edge_detection_t s, _Bool oCatch, void(*cb)(voi
  * \param catch - related value to catch
  * \return - 1 is caught
  */
-_Bool oRisingEdgeDetection(rising_edge_detection_t s, _Bool oCatch)
+_Bool oRisingEdgeDetection(rising_edge_detection_t *s, _Bool oCatch)
 {
 	if (oCatch)
 	{
